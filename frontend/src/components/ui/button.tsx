@@ -22,9 +22,9 @@ const Button: React.FC<ButtonProps> = ({
 
   const variantStyles =
     variant === "primary"
-      ? "border border-white text-white focus:ring-blue-500"
+      ? "bg-primary text-white focus:ring-blue-500"
       : variant === "secondary"
-      ? " text-orange-400  focus:ring-gray-400"
+      ? "bg-gray text-primary  focus:ring-gray-400"
       : variant === "danger"
       ? "bg-red-600 text-white focus:ring-red-500"
       : "";

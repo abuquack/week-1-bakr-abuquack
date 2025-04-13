@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Home, Login, Register } from "../pages";
+import { Home, Login, NotFoundPage, Register } from "../pages";
 import { AuthLayouts } from "../layouts/authLayouts";
 import { MainLayouts } from "../layouts/mainLayouts";
 
@@ -7,14 +7,34 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayouts />,
-    children: [{ index: true, element: <Home /> }],
+    children: [
+      { index: true, element: <Home /> },
+      { path: "*", element: <NotFoundPage /> },
+    ],
   },
   {
     path: "/auth",
-    element: <AuthLayouts />,
     children: [
-      { path: "login", element: <Login /> },
-      { path: "register", element: <Register /> },
+      {
+        path: "login",
+        element: (
+          <AuthLayouts titleCard="Login">
+            <Login />
+          </AuthLayouts>
+        ),
+      },
+      {
+        path: "register",
+        element: (
+          <AuthLayouts titleCard="Register an account">
+            <Register />
+          </AuthLayouts>
+        ),
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
     ],
   },
 ]);
