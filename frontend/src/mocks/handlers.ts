@@ -1,7 +1,13 @@
 import { http, HttpResponse } from "msw";
 
-const fakeToken = 'AKDDKFJ3AKDJ3DKJF4D';
-const fakeUser = { id: 1, name: "Abuquack", email: "abuquack@gmail.com" };
+interface UserType {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const fakeToken: string = 'AKDDKFJ3AKDJ3DKJF4D';
+const fakeUser: UserType = { id: 1, name: "Abuquack", email: "abuquack@gmail.com" };
 
 export const handlers = [
   http.post('/api/auth/login', async ({ request }) => {
