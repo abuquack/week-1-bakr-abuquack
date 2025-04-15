@@ -1,7 +1,8 @@
 import React from "react";
 
 type ButtonProps = {
-  variant?: "primary" | "secondary" | "danger";
+  type?: "button" | "submit";
+  variant?: "primary" | "secondary" | "danger" | "outline";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
   children: React.ReactNode;
@@ -9,6 +10,7 @@ type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button: React.FC<ButtonProps> = ({
+  type = "button",
   variant = "primary",
   size = "md",
   loading = false,
@@ -18,15 +20,17 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    "rounded font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+    "rounded font-semibold transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variantStyles =
     variant === "primary"
-      ? "bg-primary text-white focus:ring-blue-500"
+      ? "bg-primary hover:bg-primary/90 text-white focus:ring-primary"
       : variant === "secondary"
       ? "bg-gray text-primary  focus:ring-gray-400"
       : variant === "danger"
       ? "bg-red-600 text-white focus:ring-red-500"
+      : variant === "outline"
+      ? "text-white border text-white focus:ring-primary"
       : "";
 
   const sizeStyles =
@@ -41,6 +45,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      type={type}
       className={combinedClasses}
       disabled={disabled || loading}
       {...props}

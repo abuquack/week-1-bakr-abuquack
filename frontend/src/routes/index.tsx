@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: (
-          <AuthLayouts titleCard="Login">
+          <AuthLayouts titleCard="Login User">
             <Login />
           </AuthLayouts>
         ),
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
       {
         path: "register",
         element: (
-          <AuthLayouts titleCard="Register an account">
+          <AuthLayouts titleCard="Create an account">
             <Register />
           </AuthLayouts>
         ),
