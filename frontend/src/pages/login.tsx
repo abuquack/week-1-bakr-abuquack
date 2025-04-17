@@ -2,25 +2,31 @@ import { useState } from "react";
 import { Button } from "../components/ui/button";
 import { login } from "../services/auth";
 import { useNavigate } from "react-router-dom";
+import { LoginDataType } from "../types/authTypes";
+import { useAuth } from "../context/authContext";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { fetchUser } = useAuth();
 
-  const [formData, setFormData] = useState({
-    email: "abuquack@gmail.com",
-    password: "123456",
+  const [formData, setFormData] = useState<LoginDataType>({
+    email: "",
+    password: "",
   });
+  const [error, setError] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const email = formData.email;
-    const password = formData.password;
     try {
-      const data = await login(email, password);
-      setFormData(data.user);
-      localStorage.setItem("token", data?.token);
+      await login(formData);
+      await fetchUser();
+      setFormData({
+        email: "",
+        password: "",
+      });
       navigate("/");
     } catch (error) {
+      setError((error as string) || "Login failed");
       console.error("Login failed:", error);
     }
   };
@@ -50,7 +56,7 @@ export const Login = () => {
           <input
             id="password"
             className={`border border-white px-2 py-2 rounded text-black outline-none`}
-            type="password"
+            type="text"
             placeholder="enter your password"
             required
             onChange={(e) =>
@@ -59,6 +65,7 @@ export const Login = () => {
           />
         </div>
       </div>
+
       <Button
         type="submit"
         variant="outline"
@@ -67,6 +74,7 @@ export const Login = () => {
       >
         Login
       </Button>
+      {error && <p className="text-red-500 mt-1">{error}</p>}
     </>
   );
 };
