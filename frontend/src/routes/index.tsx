@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "register",
+        path: "signup",
         element: (
           <AuthLayouts titleCard="Create an account">
             <Register />

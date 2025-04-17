@@ -12,7 +12,7 @@ export const InputForm: React.FC<InputFormProps> = ({
   ...inputProps
 }) => {
   return (
-    <div className="grid w-full  items-center gap-1.5">
+    <div className="grid w-full items-center gap-1.5">
       <label
         htmlFor={id}
         className="text-white font-medium"
