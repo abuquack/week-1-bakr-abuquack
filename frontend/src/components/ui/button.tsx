@@ -9,7 +9,7 @@ type ButtonProps = {
   className?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   type = "button",
   variant = "primary",
   size = "md",
@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
       : variant === "danger"
       ? "bg-red-600 text-white focus:ring-red-500"
       : variant === "outline"
-      ? "text-white border text-white focus:ring-primary"
+      ? "text-white hover:text-primary border focus:ring-primary hover:bg-white duration-200"
       : "";
 
   const sizeStyles =
@@ -54,5 +54,3 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
-
-export { Button };

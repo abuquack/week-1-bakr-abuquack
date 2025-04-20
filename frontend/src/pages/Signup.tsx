@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { login } from "../services/auth";
-import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/Button";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../services/auth";
 import { InputForm } from "../components/common/InputForm";
 
-export const Login = () => {
+export const Signup = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   return (
@@ -14,12 +14,12 @@ export const Login = () => {
           {errorMessage}
         </div>
       )}
-      <LoginForm setErrorMessage={setErrorMessage} />
+      <SignupForm setErrorMessage={setErrorMessage} />
       <div className="mt-4 text-center">
         <p className="text-white">
-          Don't have an account?{" "}
-          <Link to="/auth/signup" className="text-blue-400 hover:underline">
-            Signup here
+          Already have an account?{" "}
+          <Link to="/auth/login" className="text-blue-400 hover:underline">
+            Login here
           </Link>
         </p>
       </div>
@@ -27,13 +27,14 @@ export const Login = () => {
   );
 };
 
-const LoginForm = ({
+const SignupForm = ({
   setErrorMessage,
 }: {
   setErrorMessage: React.Dispatch<string>;
 }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -44,14 +45,21 @@ const LoginForm = ({
     setLoading(true);
     setErrorMessage("");
 
-    const { data, error } = await login(formData);
-    setLoading(false);
+    const { data, error } = await register(formData);
+
     if (error) setErrorMessage(error);
     else if (data) navigate("/");
   };
-
   return (
     <form onSubmit={handleSubmit}>
+      <InputForm
+        label="Name"
+        id="name"
+        type="name"
+        placeholder="enter your name"
+        required
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+      />
       <InputForm
         label="Email"
         id="email"
@@ -74,7 +82,7 @@ const LoginForm = ({
         className="w-full mt-4"
         disabled={loading}
       >
-        {loading ? "Logging in..." : "Login"}
+        {loading ? "Registering..." : "Register"}
       </Button>
     </form>
   );
